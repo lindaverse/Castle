@@ -2,11 +2,11 @@ require(plyr)
 require(data.table)
 
 #Read data into R.
-characterNames <- as.data.table(read.csv("./Data/characterNames.csv", header = T))
+genders <- as.data.table(read.csv("./Data/genders.csv", header = T))
 roles <- as.data.table(read.csv("./Data/roles.csv", header = T))
 
 #Update meta-data.
-characterNames <- rename(characterNames, 
+genders <- rename(genders, 
                          c("ep_id" = "episodeID", 
                            "ep_name" = "episodeName",
                            "season_nr" = "seasonNumber", 
@@ -25,14 +25,17 @@ normalise_col <- function(column) {
     gsub("[^a-z]", "", lowercased)
 }
 
-characterNames$characterIndex <-normalise_col(characterNames$Name)
-characterNames$episodeIndex <- normalise_col(characterNamess$Episode.Name)
-imdb$character_index <- normalise_col(imdb$char_name)
-imdb$episode_index <- normalise_col(imdb$ep_name)
+#Normalise data that will be used to merge tables.
+genders$characterIndex <-normalise_col(genders$characterName)
+genders$episodeIndex <- normalise_col(genders$episodeName)
+roles$characterIndex <- normalise_col(roles$name)
+roles$episodeIndex <- normalise_col(roles$episodeName)
 
-merged_data <- merge(characters, imdb, by = c("character_index", "episode_index"), all.x = T)
+#Merge data on character name and episode name.
+gendersWithRoles <- merge(roles, genders, by = c("characterIndex", "episodeIndex"), all.x = T)
 
-keeps <- c("Name", "Episode.Name", "Role", "Season", "actor_name", "gender")
-merged_data <- merged_data[keeps]
-
-write.table(merged_data, "merged.csv", sep = ",", row.names =T)
+#Remove un-needed variables.
+toKeep <- c("name", "role", "season", "episodeName.x", "actorName", "gender")
+gendersWithRoles <- gendersWithRoles[, c("name", "role", "season", "episodeName.x", "actorName", "gender"), with = FALSE]
+gendersWithRoles <- rename(gendersWithRoles, c("episodeName.x" = "episodeName"))
+write.table(gendersWithRoles, "./Data/gendersWithRoles.CSV", sep = ",", row.names =T)
