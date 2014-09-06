@@ -53,4 +53,4 @@ gendersWithRoles <- gendersWithRoles[, c("name", "role", "season", "episodeName.
 gendersWithRoles <- rename(gendersWithRoles, c("episodeName.x" = "episodeName"))
 
 #Write CSV file to current working directory. Entries that couldn't be merged contain NA values.
-#write.table(gendersWithRoles, "./Data/gendersWithRolesIncludingNAs.csv", sep = ",", row.names =T)
+write.table(gendersWithRoles, "./Data/gendersWithRolesIncludingNAs.csv", sep = ",", row.names =T)
