@@ -29,4 +29,3 @@ The outputted files:
 - "gendersWithRolesIncludingNAs.csv" data set produced as a result of merging "roles.csv" and "gender.csv". Contains NA values where a merge was not possible.
 - "gendersWithRolesComplete.csv" updated data set containing relevant genders in place of NA values.
 - "castlePlot.png" plot showing the genders of victims and killers in Castle next to stats from the US Department of Justice.
-
