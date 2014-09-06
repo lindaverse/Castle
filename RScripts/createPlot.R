@@ -34,17 +34,17 @@ allData$gender <- as.factor(allData$gender)
 #Create plot comparing actual homicides to Castle data and output it to png file. 
 png("castlePlot.png", width=600, height=600)
 print(ggplot() +
-      geom_bar(data=allData, 
-               aes(y = percentage, 
-                   x = context, 
-                   fill = gender), 
+      geom_bar(data=allData,  
                stat="identity",
-               position='stack') + 
+               position="stack") +
+      aes(y = percentage, 
+          x = context, 
+          fill = gender) +     
       ylab("Percentage") +
       xlab(NULL) +
       theme(legend.position="bottom") +
-      scale_fill_discrete(labels=c("Female", "Male")) +
       theme(panel.grid.major = element_blank(), 
             panel.grid.minor = element_blank()) +
-      facet_grid( ~ role))
+      facet_grid( ~ role) +
+      scale_fill_brewer(palette="Paired", labels=c("Female", "Male")))
 dev.off()
