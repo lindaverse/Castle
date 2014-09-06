@@ -38,8 +38,8 @@ print(ggplot() +
                aes(y = percentage, 
                    x = context, 
                    fill = gender), 
-                   stat="identity",
-                   position='stack') + 
+               stat="identity",
+               position='stack') + 
       ylab("Percentage") +
       xlab(NULL) +
       theme(legend.position="bottom") +

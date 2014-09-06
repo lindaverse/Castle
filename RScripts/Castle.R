@@ -29,8 +29,12 @@ normalise_col <- function(column) {
 selectBestKey <- function(name) {
     if (!grepl("aka", name)) {name}
     else {
-        if (gsub("aka.*", "", name) %in% genders$characterIndex) {(gsub("aka.*", "", name))}
-        else if (gsub(".*aka", "", name) %in% genders$characterIndex) {(gsub(".*aka", "", name))}
+        if (gsub("aka.*", "", name) %in% genders$characterIndex) {
+            (gsub("aka.*", "", name))
+        }
+        else if (gsub(".*aka", "", name) %in% genders$characterIndex) {
+            (gsub(".*aka", "", name))
+        }
         else {name}
     }
 }
