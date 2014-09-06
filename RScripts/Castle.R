@@ -7,12 +7,12 @@ roles <- as.data.table(read.csv("./Data/roles.csv", header = T))
 
 #Update meta-data.
 genders <- rename(genders, 
-                         c("ep_id" = "episodeID", 
-                           "ep_name" = "episodeName",
-                           "season_nr" = "seasonNumber", 
-                           "episode_nr" = "episodeNumber", 
-                           "actor_name" = "actorName",
-                           "char_name" = "characterName"))
+                  c("ep_id" = "episodeID", 
+                    "ep_name" = "episodeName",
+                    "season_nr" = "seasonNumber", 
+                    "episode_nr" = "episodeNumber", 
+                    "actor_name" = "actorName",
+                    "char_name" = "characterName"))
 roles <- rename(roles, 
                 c("Name" = "name",
                   "Role" = "role",
@@ -27,12 +27,12 @@ normalise_col <- function(column) {
 
 #Function that selects best key from a name with an aka.
 selectBestKey <- function(name) {
-  if (!grepl("aka", name)) {name}
-  else {
-    if (gsub("aka.*", "", name) %in% genders$characterIndex) {(gsub("aka.*", "", name))}
-    else if (gsub(".*aka", "", name) %in% genders$characterIndex) {(gsub(".*aka", "", name))}
-    else {name}
-  }
+    if (!grepl("aka", name)) {name}
+    else {
+        if (gsub("aka.*", "", name) %in% genders$characterIndex) {(gsub("aka.*", "", name))}
+        else if (gsub(".*aka", "", name) %in% genders$characterIndex) {(gsub(".*aka", "", name))}
+        else {name}
+    }
 }
 
 #Normalise data that will be used to merge tables.
@@ -48,7 +48,13 @@ roles$characterIndex <- mapply(roles$characterIndex, FUN=selectBestKey)
 gendersWithRoles <- merge(roles, genders, by = c("characterIndex", "episodeIndex"), all.x = T)
 
 #Remove un-needed variables.
-toKeep <- c("name", "role", "season", "episodeName.x", "actorName", "gender")
+toKeep <- c("name", 
+            "role", 
+            "season", 
+            "episodeName.x", 
+            "actorName", 
+            "gender")
+
 gendersWithRoles <- gendersWithRoles[, c("name", "role", "season", "episodeName.x", "actorName", "gender"), with = FALSE]
 gendersWithRoles <- rename(gendersWithRoles, c("episodeName.x" = "episodeName"))
 
