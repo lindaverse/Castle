@@ -32,7 +32,7 @@ allData$role <- as.factor(allData$role)
 allData$gender <- as.factor(allData$gender)
 
 #Create plot comparing actual homicides to Castle data and output it to png file. 
-png("plot5.png", width=600, height=600)
+png("castlePlot.png", width=600, height=600)
 print(ggplot() +
         geom_bar(data=allData, 
                  aes(y = percentage, 
