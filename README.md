@@ -3,7 +3,7 @@ Castle project
 
 Short project looking at the genders of killers and victims in the TV show Castle. 
 
-Read more about the project on my blog: https://lindaverse.wordpress.com/
+Read more about the project on my blog: https://lindaverse.wordpress.com/2014/09/14/televisions-victims-and-killers/
 
 What's in this repo
 ===================
